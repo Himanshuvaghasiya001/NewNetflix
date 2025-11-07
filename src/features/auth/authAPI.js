@@ -70,17 +70,17 @@ export const forgotPassword = createAsyncThunk(
   }
 );
 
-export const resetPassword = createAsyncThunk(
-  'auth/resetPassword',
-  async ({ uidb64, token, password }, { rejectWithValue }) => {
-    try {
-      const res = await API.post(`/reset-password/${uidb64}/${token}/`, { password });
-      return res.data;
-    } catch (err) {
-      return rejectWithValue(err.response?.data || err.message);
-    }
-  }
-);
+// export const resetPassword = createAsyncThunk(
+//   'auth/resetPassword',
+//   async ({ uidb64, token, password }, { rejectWithValue }) => {
+//     try {
+//       const res = await API.post(`/reset-password/${uidb64}/${token}/`, { password });
+//       return res.data;
+//     } catch (err) {
+//       return rejectWithValue(err.response?.data || err.message);
+//     }
+//   }
+// );
 
 export const changePassword = createAsyncThunk(
   'auth/changePassword',
@@ -122,7 +122,7 @@ export const updateUsername = createAsyncThunk(
       if (!token) throw new Error('No token found');
 
       // const res = await fetch(`http://127.0.0.1:8080/api/user/updateUserBYId/${userId}`, {
-      const res = await fetch(`http://127.0.0.1:8000/update-profile/`, {
+      const res = await fetch(`https://newnetflixbackend.onrender.com/update-profile/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export const deleteUser = createAsyncThunk(
       const token = localStorage.getItem('access');
       if (!token) throw new Error('No token found');
 
-      const res = await fetch(`http://127.0.0.1:8000/delete-profile/`, {
+      const res = await fetch(`https://newnetflixbackend.onrender.com/delete-profile/`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
