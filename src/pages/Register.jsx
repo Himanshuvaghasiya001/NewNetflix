@@ -54,7 +54,7 @@ const Register = () => {
       hasError = true;
     }
   
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!formData.password) {
       newErrors.password = "Password is required";
       hasError = true;
