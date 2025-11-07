@@ -83,7 +83,7 @@ const Register = () => {
         setLoading(false);
     
         // 🧠 Check karein ki backend ne kya message bheja
-        let errorMsg = "Something went wrong";
+        let errorMsg = "Email already exist";
     
         if (err?.email) {
           errorMsg = err.email[0];  // Django usually sends { "email": ["user with this email already exists."] }
