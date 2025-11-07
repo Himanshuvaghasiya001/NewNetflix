@@ -79,19 +79,23 @@ const Register = () => {
         setLoading(false);
         navigate("/login");
       })
-      .catch((errMsg) => {
-        console.log("❌ Register error:", errMsg);
-  
-        // Backend se message aa raha ho ya nahi dono case handle karo
-        const message =
-          typeof errMsg === "string"
-            ? errMsg
-            : errMsg?.message ||
-              errMsg?.email ||
-              "Email already exists or registration failed";
-  
-        setError({ email: message });
+      .catch((err) => {
         setLoading(false);
+    
+        // 🧠 Check karein ki backend ne kya message bheja
+        let errorMsg = "Something went wrong";
+    
+        if (err?.email) {
+          errorMsg = err.email[0];  // Django usually sends { "email": ["user with this email already exists."] }
+        } 
+        else if (err?.detail) {
+          errorMsg = err.detail;  // sometimes { detail: "..." }
+        }
+        else if (typeof err === "string") {
+          errorMsg = err;
+        }
+    
+        setError({ email: errorMsg });
       });
   };
   
