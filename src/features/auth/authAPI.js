@@ -15,7 +15,7 @@ export const registerUser = createAsyncThunk(
       //   password,
       // });
       // const response = await axios.post('http://127.0.0.1:8080/api/user/createUser', {
-      const response = await API.post('/register/', {
+      const response = await axios.post('https://newnetflixbackend.onrender.com/register/', {
         username,
         email,
         password,
@@ -35,7 +35,7 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       // Call Django login endpoint
-      const response = await API.post('/login/', { email, password });
+      const response = await axios.post('https://newnetflixbackend.onrender.com/login/', { email, password });
 
       // Backend returns { message, email, refresh, access }
       const { access, refresh, email: userEmail } = response.data;
