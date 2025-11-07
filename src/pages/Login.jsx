@@ -60,7 +60,7 @@ const Login = () => {
       })
       .catch((errMsg) => {
         setError({email: errMsg || ''});
-        setError({password: errMsg || ''});
+        setError({password:  'Invalid password'});
         setLoading(false); // stop loader even on error
       });
   };
