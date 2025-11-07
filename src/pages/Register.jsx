@@ -80,7 +80,17 @@ const Register = () => {
         navigate("/login");
       })
       .catch((errMsg) => {
-        setError({ email: errMsg });
+        console.log("❌ Register error:", errMsg);
+  
+        // Backend se message aa raha ho ya nahi dono case handle karo
+        const message =
+          typeof errMsg === "string"
+            ? errMsg
+            : errMsg?.message ||
+              errMsg?.email ||
+              "Email already exists or registration failed";
+  
+        setError({ email: message });
         setLoading(false);
       });
   };
