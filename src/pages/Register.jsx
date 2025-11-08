@@ -81,7 +81,7 @@ const Register = () => {
       })
       .catch((err) => {
         setLoading(false);
-        let errorMsg = {};
+        let errorMsg = {email : '',password:''};
       
         if (err?.email) {
           errorMsg.email = err.email[0];
