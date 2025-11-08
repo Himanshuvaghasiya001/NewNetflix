@@ -81,20 +81,25 @@ const Register = () => {
       })
       .catch((err) => {
         setLoading(false);
-        let errorMsg = { email: '', password: '' };
+        
+        // safe extract
+        const errorData = err?.email || err?.password || err?.message ? err : err?.payload || {};
       
-        if (err?.email) {
-          errorMsg.email = err.email;
+        let errorMsg = { email: "", password: "" };
+      
+        if (errorData?.email) {
+          errorMsg.email = errorData.email;
         }
-        if (err?.password) {
-          errorMsg.password = err.password;
+        if (errorData?.password) {
+          errorMsg.password = errorData.password;
         }
-        if (err?.detail) {
-          errorMsg.email = err.detail;
+        if (errorData?.message) {
+          errorMsg.email = errorData.message;
         }
       
         setError(errorMsg);
       });
+      
       
   };
   

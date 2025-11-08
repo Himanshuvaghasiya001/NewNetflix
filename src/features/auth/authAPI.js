@@ -5,31 +5,21 @@ import { jwtDecode } from 'jwt-decode';
 import API from './axiosInstance'; // 👈 move this to top
 
 export const registerUser = createAsyncThunk(
-  'auth/registerUser',
-  async ({ username, email, password }, {rejectWithValue}) => {
+  "auth/registerUser",
+  async ({ username, email, password }, { rejectWithValue }) => {
     try {
-      // console.log("Register Payload:", { username, email, password });
-      // const response = await axios.post('http://127.0.0.1:8000/auth/register/', {
-      //   username,
-      //   email,
-      //   password,
-      // });
-      // const response = await axios.post('http://127.0.0.1:8080/api/user/createUser', {
-      const response = await axios.post('https://newnetflixbackend.onrender.com/register/', {
-        username,
-        email,
-        password,
-      }); 
+      const response = await axios.post(
+        "https://newnetflixbackend.onrender.com/register/",
+        { username, email, password }
+      );
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
-        // Backend se jo exact message aaya use hi return kar do
-        return thunkAPI.rejectWithValue(error.response.data);
+        // ✅ yahan sirf rejectWithValue likhna hai, thunkAPI nahi
+        return rejectWithValue(error.response.data);
       } else {
-        // Agar koi aur unknown error hai
-        return thunkAPI.rejectWithValue({ message: "Something went wrong" });
+        return rejectWithValue({ message: "Something went wrong" });
       }
-    
     }
   }
 );
