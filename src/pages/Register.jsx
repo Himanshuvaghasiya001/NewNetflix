@@ -81,47 +81,20 @@ const Register = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log("REGISTER ERROR:", err); // 👈 debugging ke liye
+        let errorMsg = { email: '', password: '' };
       
-        // Agar backend se JSON string ya object aata hai to safe parse karenge
-        let errorData = {};
-      
-        // case 1: backend ne object diya (err.email, err.password, etc.)
-        if (typeof err === 'object' && err !== null) {
-          errorData = err;
+        if (err?.email) {
+          errorMsg.email = err.email;
+        }
+        if (err?.password) {
+          errorMsg.password = err.password;
+        }
+        if (err?.detail) {
+          errorMsg.email = err.detail;
         }
       
-        // case 2: backend ne string diya (e.g., via rejectedWithValue)
-        else if (typeof err === 'string') {
-          try {
-            errorData = JSON.parse(err);
-          } catch {
-            errorData = { detail: err };
-          }
-        }
-      
-        // ab error show karte hain frontend me
-        let newError = { username: '', email: '', password: '' };
-      
-        if (errorData.email) {
-          newError.email = Array.isArray(errorData.email)
-            ? errorData.email[0]
-            : errorData.email;
-        }
-      
-        if (errorData.password) {
-          newError.password = Array.isArray(errorData.password)
-            ? errorData.password[0]
-            : errorData.password;
-        }
-      
-        if (errorData.detail) {
-          newError.email = errorData.detail;
-        }
-      
-        setError(newError);
+        setError(errorMsg);
       });
-      
       
   };
   
