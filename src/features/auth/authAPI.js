@@ -22,8 +22,14 @@ export const registerUser = createAsyncThunk(
       }); 
       return response.data;
     } catch (error) {
-      console.log(error.response.data.message);
-      return rejectWithValue(error.response.data.message);
+      if (error.response && error.response.data) {
+        // Backend se jo exact message aaya use hi return kar do
+        return thunkAPI.rejectWithValue(error.response.data);
+      } else {
+        // Agar koi aur unknown error hai
+        return thunkAPI.rejectWithValue({ message: "Something went wrong" });
+      }
+    
     }
   }
 );

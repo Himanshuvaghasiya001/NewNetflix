@@ -38,6 +38,7 @@ const authSlice = createSlice({
                 state.user = jwtDecode(action.payload.access);
                 state.isAuthenticated = true;
                 localStorage.setItem('token', action.payload.access);
+                state.message = action.payload.message;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
