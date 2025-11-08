@@ -81,22 +81,21 @@ const Register = () => {
       })
       .catch((err) => {
         setLoading(false);
-    
-        // 🧠 Check karein ki backend ne kya message bheja
-        let errorMsg = "Email already exist";
-    
+        let errorMsg = {};
+      
         if (err?.email) {
-          errorMsg = err.email[0];  // Django usually sends { "email": ["user with this email already exists."] }
-        } 
-        else if (err?.detail) {
-          errorMsg = err.detail;  // sometimes { detail: "..." }
+          errorMsg.email = err.email[0];
         }
-        else if (typeof err === "string") {
-          errorMsg = err;
+        if (err?.password) {
+          errorMsg.password = err.password[0];
         }
-    
-        setError({ email: errorMsg });
+        if (err?.detail) {
+          errorMsg.email = err.detail;
+        }
+      
+        setError(errorMsg);
       });
+      
   };
   
 
